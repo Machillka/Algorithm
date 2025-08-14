@@ -17,7 +17,7 @@ public interface ITree<T>
     ITreeNode<T> Root { get; }          // 定义根节点
     void Insert(T val);                 // 插入方法
     bool Search(T val);                 // 查找方法
-    IEnumerable<T> Traverse();          // 遍历方法
+    IEnumerable<T> Traverse();          // 默认遍历方法
 }
 
 /// <summary>

@@ -15,7 +15,7 @@ public class BinarySearchTree<T> : TreeBase<T> where T : IComparable<T>
     {
         if (node == null) return new BinaryTreeNode<T>(value);
         int cmp = value.CompareTo(node.Value);
-        if (cmp < 0) node.Left  = InsertRec(node.Left,  value);
+        if (cmp < 0) node.Left = InsertRec(node.Left, value);
         else if (cmp > 0) node.Right = InsertRec(node.Right, value);
         return node;
     }
@@ -29,7 +29,20 @@ public class BinarySearchTree<T> : TreeBase<T> where T : IComparable<T>
         int cmp = value.CompareTo(node.Value);
         if (cmp == 0) return true;
         return cmp < 0
-            ? SearchRec(node.Left,  value)
+            ? SearchRec(node.Left, value)
             : SearchRec(node.Right, value);
+    }
+
+    public override IEnumerable<T> Traverse() => InOrderRec(Root);
+
+    public IEnumerable<T> InOrderRec(BinaryTreeNode<T> node)
+    {
+        if (node == null)
+            yield break;
+        foreach (var val in InOrderRec(node.Left))
+            yield return val;
+        yield return node.Value;
+        foreach (var val in InOrderRec(node.Right))
+            yield return val;
     }
 }
