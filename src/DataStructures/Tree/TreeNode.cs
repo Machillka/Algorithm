@@ -28,3 +28,25 @@ public class BinaryTreeNode<T> : ITreeNode<T>
 
     public BinaryTreeNode(T val = default) => Value = val;
 }
+public enum Colors { Red, Black }
+public class RedBlackTreeNode<T> : ITreeNode<T>
+{
+    public T Value { get; set; }
+    public Colors Color;
+    public RedBlackTreeNode<T> Left { get; set; }
+    public RedBlackTreeNode<T> Right { get; set; }
+    public RedBlackTreeNode<T> Parent { get; set; }
+
+    public IReadOnlyCollection<ITreeNode<T>> Children =>
+        new[] { Left as ITreeNode<T>, Right as ITreeNode<T> }
+        .Where(x => x != null)
+        .ToList()
+        .AsReadOnly();
+
+    public RedBlackTreeNode(T val = default, Colors col = Colors.Red, RedBlackTreeNode<T> nil = null)
+    {
+        Value = val;
+        Color = col;
+        Left = Right = Parent = nil;
+    }
+}
